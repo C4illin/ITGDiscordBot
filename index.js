@@ -109,7 +109,7 @@ bot.on("message", (message) => {
             });
             break;
         case "hur":
-            message.channel.sendMessage(hurExempel[Math.floor(Math.random() * hurExempel.length)]);
+            message.channel.send(hurExempel[Math.floor(Math.random() * hurExempel.length)]);
             break;
         case "saldo":
             var saldo;
@@ -453,8 +453,12 @@ bot.on("message", (message) => {
             var googleSearch = message.content.substring(8).replace(/ /g,"+");
             message.channel.send("https://www.google.se/search?q="+googleSearch);
             break;
-        case "random":
-
+        case "nummer":
+            var meddelandetsContent = message.content.substring(8);
+            var mittenStreck = meddelandetsContent.indexOf("-");
+            var förstaTalet = meddelandetsContent.substring(0, mittenStreck);
+            var andraTalet = meddelandetsContent.substring(mittenStreck+1);
+            message.channel.send(Math.floor(Math.random() * parseInt(andraTalet) + parseInt(förstaTalet)));
             break;
         case "vem":
             var statement = message.content.substring(6);
