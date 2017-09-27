@@ -109,7 +109,7 @@ bot.on("message", (message) => {
             });
             break;
         case "hur":
-            message.channel.send(hurExempel[Math.floor(Math.random() * hurExempel.length)]);
+            message.channel.send("Av en/ett "+hurExempel[Math.floor(Math.random() * hurExempel.length)]);
             break;
         case "saldo":
             var saldo;
