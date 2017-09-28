@@ -41,6 +41,8 @@ bot.on("warn", (m) => console.log("[warn]", m));
 
 var hurExempel = require('./hurExempel');
 
+var klasslista = require('./klasslista');
+
 var servers = {};
 
 var borde = [
@@ -492,6 +494,9 @@ bot.on("message", (message) => {
             var andraTalet = meddelandetsContent.substring(mittenStreck+1);
             message.channel.send(Math.floor(Math.random() * parseInt(andraTalet) + parseInt(förstaTalet)));
             break;
+        case "cc":
+            message.channel.send(chance.cc());
+            break;
         case "vem":
             if (message.channel.type === "text") {
                 var statement = message.content.substring(5);
@@ -500,6 +505,13 @@ bot.on("message", (message) => {
                 }
                 message.channel.send(message.guild.members.random().toString()+" "+statement);
             }
+            break;
+        case "vemalla":
+            var statement = message.content.substring(9);
+            if (statement.endsWith("?")) {
+                var statement = message.content.substring(9).replace("?", ".");
+            }
+            message.channel.send(klasslista[Math.floor(Math.random()*klasslista.length)]+" "+statement);
             break;
         //case "test":
             //message.channel.send("https://itgappen.se/api/2/lunch");	
