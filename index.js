@@ -98,7 +98,7 @@ bot.on("message", (message) => {
                     .setAuthor("Kommandon:", bot.user.avatarURL)
                     .addField("Allmäna kommandon:", "!help - visar denna meny\n!dab - sprid cancer\n!poll <fråga> - Starta en ja eller nej fråga\n!pinpoll - samma som !poll fast den pinnar också\n!borde - låt boten svara på livets svåra frågor\n!ryss - spela rysk roulette\n!nummer <nummer1>-<nummer2> - ger dig ett slumpmässigt nummer\n!vem <påstående> - låter boten välja vem påståendet bäst passar in på\n!hur - säger hur något hände")
                     .addField("Skolrelaterade kommandon:", "!schema - visar veckans schema\n!schemavecka <vecka> - visar schemat från en viss vecka\n!vecka - visar veckan\n!wikipedia <sida> - låter dig gå till en viss Wikipedia hemsida\n!wikise <sida> - låter dig gå till en svenska Wikipedia sida\n!wikisök <sök> - söker på Wikipedia\n!google <sök> - söker på google")
-                    .addField("Discord kommandon:", "!hex - ger dig en slumpmässig färg\n!hexdisplay <hex> - visar fägen som det inskrivna hex nummret ger\n!github - skickar länken till botens github repo\n!ping - visar botens internal ping (för felsökning)\n!getid - visar ditt user id")
+                    .addField("Discord kommandon:", "!hex - ger dig en slumpmässig färg\n!hexdisplay <hex> - visar fägen som det inskrivna hex nummret ger\n!github - skickar länken till botens github repo\n!ping - visar botens internal ping (för felsökning)\n!getid - visar ditt user id\n!info - visar info om servern")
                     .setColor("0x111111")
             });
             message.channel.send({
@@ -453,6 +453,32 @@ bot.on("message", (message) => {
             var googleSearch = message.content.substring(8).replace(/ /g,"+");
             message.channel.send("https://www.google.se/search?q="+googleSearch);
             break;
+        case "info":
+            function fixSwedish(i) {
+                if(i < 3) {
+                return ":a";
+                }else {
+                return ":e";
+                }
+            }
+            function timeConverter(UNIX_timestamp) {
+                var a = new Date(UNIX_timestamp);
+                var months = ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'];
+                var year = a.getFullYear();
+                var month = months[a.getMonth()];
+                var date = a.getDate();
+                var hour = a.getHours();
+                var min = a.getMinutes();
+                var time = date + fixSwedish(date) + ' ' + month + ' ' + year + ' klockan ' + hour + ':' + min;
+                return time;
+            }
+            message.author.send({
+            embed: new Discord.RichEmbed()
+                .addField("Serverinformation:", "Antal medlemmar: " + message.guild.memberCount + "\nDu gick med den " + timeConverter(message.guild.joinedTimestamp) + "\nServerns admin är: " + message.guild.owner)
+                .setThumbnail(message.guild.iconURL)
+                .setColor("0x111111")
+            });
+            break;
         case "nummer":
             var meddelandetsContent = message.content.substring(8);
             var mittenStreck = meddelandetsContent.indexOf("-");
@@ -461,12 +487,14 @@ bot.on("message", (message) => {
             message.channel.send(Math.floor(Math.random() * parseInt(andraTalet) + parseInt(förstaTalet)));
             break;
         case "vem":
-            var statement = message.content.substring(6);
-            if (statement.endsWith("?")) {
-                var statement = message.content.substring(6).replace("?", ".");
+            if (message.channel.type === "text") {
+                var statement = message.content.substring(6);
+                if (statement.endsWith("?")) {
+                    var statement = message.content.substring(6).replace("?", ".");
+                }
+                var firstLetter = message.content.substring(5, 6).toUpperCase();
+                message.channel.send(message.guild.members.random().toString()+" "+firstLetter+statement);
             }
-            var firstLetter = message.content.substring(5, 6).toUpperCase();
-            message.channel.send(message.guild.members.random().toString()+" "+firstLetter+statement);
             break;
         //case "test":
             //message.channel.send("https://itgappen.se/api/2/lunch");	
