@@ -4,6 +4,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const date = require("date");
 const YTDL = require("ytdl-core");
+const Chance = require('chance');
 const bot = new Discord.Client();
 const prefix = "!";
 const botToken = require("./bottoken");
@@ -21,6 +22,13 @@ function play(connection, message) {
     });
 }
 
+var chance = new Chance();
+
+bot.on("ready", () => {
+    console.log("Klar");
+    bot.user.setGame("Skriv !help för hjälp.");
+});
+
 bot.on("disconnect", () => {
 	console.log("Disconnected, trying to login again in 30 seconds");
 	// Wait 30 seconds and then try to reconnect
@@ -30,11 +38,6 @@ bot.on("disconnect", () => {
 });
 
 bot.on("warn", (m) => console.log("[warn]", m));
-
-bot.on("ready", () => {
-    console.log("Klar");
-    bot.user.setGame("Skriv !help för hjälp.");
-});
 
 var hurExempel = require('./hurExempel');
 
@@ -96,7 +99,7 @@ bot.on("message", (message) => {
             message.channel.send({
                 embed: new Discord.RichEmbed()
                     .setAuthor("Kommandon:", bot.user.avatarURL)
-                    .addField("Allmäna kommandon:", "!help - visar denna meny\n!dab - sprid cancer\n!poll <fråga> - Starta en ja eller nej fråga\n!pinpoll - samma som !poll fast den pinnar också\n!borde - låt boten svara på livets svåra frågor\n!ryss - spela rysk roulette\n!nummer <nummer1>-<nummer2> - ger dig ett slumpmässigt nummer\n!vem <påstående> - låter boten välja vem påståendet bäst passar in på\n!hur - säger hur något hände")
+                    .addField("Allmäna kommandon:", "!help - visar denna meny\n!dab - sprid cancer\n!poll <fråga> - Starta en ja eller nej fråga\n!pinpoll - samma som !poll fast den pinnar också\n!borde - låt boten svara på livets svåra frågor\n!ryss - spela rysk roulette\n!nummer <nummer1>-<nummer2> - ger dig ett slumpmässigt nummer\n!vem <påstående> - låter boten välja vem påståendet bäst passar in på\n!hur - säger hur något hände\n!tid - ger en slumpmässig tid")
                     .addField("Skolrelaterade kommandon:", "!schema - visar veckans schema\n!schemavecka <vecka> - visar schemat från en viss vecka\n!vecka - visar veckan\n!wikipedia <sida> - låter dig gå till en viss Wikipedia hemsida\n!wikise <sida> - låter dig gå till en svenska Wikipedia sida\n!wikisök <sök> - söker på Wikipedia\n!google <sök> - söker på google")
                     .addField("Discord kommandon:", "!hex - ger dig en slumpmässig färg\n!hexdisplay <hex> - visar fägen som det inskrivna hex nummret ger\n!github - skickar länken till botens github repo\n!ping - visar botens internal ping (för felsökning)\n!getid - visar ditt user id\n!info - visar info om servern")
                     .setColor("0x111111")
@@ -479,6 +482,9 @@ bot.on("message", (message) => {
                 .setColor("0x111111")
             });
             break;
+        case "tid":
+            message.channel.send(chance.date({string: true, american: false})+" Klockan "+chance.hour()+":"+chance.minute());
+            break;
         case "nummer":
             var meddelandetsContent = message.content.substring(8);
             var mittenStreck = meddelandetsContent.indexOf("-");
@@ -488,12 +494,11 @@ bot.on("message", (message) => {
             break;
         case "vem":
             if (message.channel.type === "text") {
-                var statement = message.content.substring(6);
+                var statement = message.content.substring(5);
                 if (statement.endsWith("?")) {
-                    var statement = message.content.substring(6).replace("?", ".");
+                    var statement = message.content.substring(5).replace("?", ".");
                 }
-                var firstLetter = message.content.substring(5, 6).toUpperCase();
-                message.channel.send(message.guild.members.random().toString()+" "+firstLetter+statement);
+                message.channel.send(message.guild.members.random().toString()+" "+statement);
             }
             break;
         //case "test":
