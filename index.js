@@ -495,6 +495,10 @@ bot.on("message", (message) => {
             message.channel.send(Math.floor(Math.random() * parseInt(andraTalet) + parseInt(förstaTalet)));
             break;
         case "cc":
+            var creditType;
+            if (message.content.substring(3, 4) === " ") {
+                creditType = "{type: '"+message.content.substring(4)+"'}";
+            }
             message.channel.send(chance.cc());
             break;
         case "vem":
@@ -513,9 +517,10 @@ bot.on("message", (message) => {
             }
             message.channel.send(klasslista[Math.floor(Math.random()*klasslista.length)]+" "+statement);
             break;
-        //case "test":
-            //message.channel.send("https://itgappen.se/api/2/lunch");	
-            //break;
+        /*case "test":
+            var meddelandet = chance.currency();
+            message.channel.send("Här: "+JSON.stringify(meddelandet));
+            break;*/
         default:
             message.channel.send("```Detta kommando existerar inte (än)\nSkriv !help för att se de kommandon som faktiskt existerar```");
     }
