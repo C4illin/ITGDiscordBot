@@ -25,8 +25,8 @@ function play(connection, message) {
 var chance = new Chance();
 
 bot.on("ready", () => {
+    bot.user.setGame("Skriv !help för hjälp");
     console.log("Klar");
-    bot.user.setGame("Skriv !help för hjälp.");
 });
 
 bot.on("disconnect", () => {
