@@ -364,25 +364,22 @@ bot.on("message", (message) => {
                     }, 500);
                 }).catch(function() {
                     console.log("Reaktionen gick inte hela vägen fram");
-                   });
+                });
             break;
+        case "pollpin":
         case "pinpoll":
             var question = message.content.substring(9);
             message.delete(0);
-            if (message.author.id==="164283691802165250" || "349987894171271178") {
-                message.channel.send(question+"\n\n`👍=JA 👎=NEJ`")
+            message.channel.send(question+"\n\n`👍=JA 👎=NEJ`")
                 .then(function (message) {
                     message.react("👍");
                     message.pin();
-                    //delay(10)
-                    message.react("👎");
+                    setTimeout(function(){
+                        message.react("👎");
+                    }, 500);
                 }).catch(function() {
                     console.log("Reaktionen gick inte hela vägen fram (pinpoll)");
-                    });
-            }
-            else {
-                message.author.send("Du har inte tillåtelse att använda detta kommando");
-            }
+                });
             break;
         case "hd":
         case "hexdisplay":
