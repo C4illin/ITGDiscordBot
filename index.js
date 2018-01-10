@@ -29,13 +29,7 @@ bot.on("ready", () => {
     console.log("Klar");
 });
 
-bot.on("disconnect", () => {
-	console.log("Disconnected, trying to login again in 30 seconds");
-	// Wait 30 seconds and then try to reconnect
-	setTimeout(() => {
-		helper.login(() => helper.onReady());
-	}, 30000);
-});
+
 
 bot.on("warn", (m) => console.log("[warn]", m));
 
@@ -112,6 +106,12 @@ bot.on("message", (message) => {
                     .addField("Musik kommandon:", "!play <url> - spelar en youtube url\n!skip - skippar låten som spelas nu\n!stop - stoppar musiken helt\n!theend - spelar upp ett visst tal")
                     .setColor("0x111111")
             });
+            break;
+        case "nti":
+            message.delete(0);
+            guild.setIcon("./icon.png")
+                .then(updated => console.log('Updated the guild icon'))
+                .catch(console.error);
             break;
         case "hur":
             message.channel.send("Av en "+hurExempel[Math.floor(Math.random() * hurExempel.length)]);
@@ -406,6 +406,7 @@ bot.on("message", (message) => {
         case "getid":
             message.channel.send(message.author.id);
             break;
+        case "itg,":
         case "itg":
         case "har":
         case "ska":
@@ -527,5 +528,3 @@ function error(e) {
 	console.log(e.stack);
 	process.exit(0);
 }
-
-bot.login(botToken);
