@@ -109,7 +109,7 @@ bot.on("message", (message) => {
             break;
         case "nti":
             message.delete(0);
-            guild.setIcon("./icon.png")
+            message.guild.setIcon("./icon.png")
                 .then(updated => console.log('Updated the guild icon'))
                 .catch(console.error);
             break;
@@ -528,3 +528,23 @@ function error(e) {
 	console.log(e.stack);
 	process.exit(0);
 }
+
+
+try {
+    bot.login(botToken);
+  }
+  catch (er) {
+    setTimeout(function(){
+        bot.login(botToken);
+        }, 30000);
+  }
+  finally {
+    console.log("Sucessful login");
+  }
+/*bot.on("disconnect", () => {
+        console.log("Disconnected, trying to login again in 30 seconds");
+        // Wait 30 seconds and then try to reconnect
+        setTimeout(() => {
+            helper.login(() => helper.onReady());
+        }, 30000);
+    });*/
