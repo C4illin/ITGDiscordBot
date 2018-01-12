@@ -1,5 +1,4 @@
 /*jshint esversion: 6 */
-
 const Discord = require("discord.js");
 const fs = require("fs");
 const date = require("date");
@@ -29,10 +28,6 @@ bot.on("ready", () => {
     console.log("Klar");
 });
 
-
-
-bot.on("warn", (m) => console.log("[warn]", m));
-
 var hurExempel = require('./hurExempel');
 
 var klasslista = require('./klasslista');
@@ -61,10 +56,7 @@ var dabRespond = [
     "Okej då, ***DAB***"
 ];
 
-Date.prototype.getWeek = function() {
-    var onejan = new Date(this.getFullYear(), 0, 1);
-    return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
-};
+
 
 var inCash;
 var betWinner;
@@ -242,6 +234,10 @@ bot.on("message", (message) => {
             });
             break;
         case "vecka":
+            Date.prototype.getWeek = function() {
+                var onejan = new Date(this.getFullYear(), 0, 1);
+                return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+            };
             message.channel.send(weekNumber);
             break;
         case "play":
@@ -300,6 +296,10 @@ bot.on("message", (message) => {
                 break;
         case "s":
         case "schema":
+            Date.prototype.getWeek = function() {
+                var onejan = new Date(this.getFullYear(), 0, 1);
+                return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+            };
             if (message.content.charAt(4) === "e") {
                 var valfriVecka = message.content.substring(8);
             }
@@ -529,22 +529,4 @@ function error(e) {
 	process.exit(0);
 }
 
-
-try {
-    bot.login(botToken);
-  }
-  catch (er) {
-    setTimeout(function(){
-        bot.login(botToken);
-        }, 30000);
-  }
-  finally {
-    console.log("Sucessful login");
-  }
-/*bot.on("disconnect", () => {
-        console.log("Disconnected, trying to login again in 30 seconds");
-        // Wait 30 seconds and then try to reconnect
-        setTimeout(() => {
-            helper.login(() => helper.onReady());
-        }, 30000);
-    });*/
+bot.login(botToken);
