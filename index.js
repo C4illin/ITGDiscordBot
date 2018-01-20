@@ -69,7 +69,6 @@ var betLoser;
 var betExist = false;
 var skott;
 var pistolLaddad = false;
-var weekNumber = (new Date()).getWeek();
 var widthSchema = "600";
 var heightSchema = "600";
 
@@ -238,6 +237,7 @@ bot.on("message", (message) => {
                 var onejan = new Date(this.getFullYear(), 0, 1);
                 return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
             };
+            var weekNumber = (new Date()).getWeek();
             message.channel.send(weekNumber);
             break;
         case "play":
@@ -300,6 +300,7 @@ bot.on("message", (message) => {
                 var onejan = new Date(this.getFullYear(), 0, 1);
                 return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
             };
+            var weekNumber = (new Date()).getWeek();
             if (message.content.charAt(4) === "e") {
                 var valfriVecka = message.content.substring(8);
             }
