@@ -24,7 +24,7 @@ function play(connection, message) {
 var chance = new Chance();
 
 bot.on("ready", () => {
-    bot.user.setGame("Skriv !help för hjälp");
+    bot.user.setActivity("Skriv !help för hjälp");
     console.log("Klar");
 });
 
@@ -524,10 +524,5 @@ bot.on("message", (message) => {
             message.channel.send("```Detta kommando existerar inte (än)\nSkriv !help för att se de kommandon som faktiskt existerar```");
     }
 });
-
-function error(e) {
-	console.log(e.stack);
-	process.exit(0);
-}
 
 bot.login(botToken);
