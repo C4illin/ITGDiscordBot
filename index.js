@@ -6,7 +6,7 @@ const YTDL = require("ytdl-core");
 const Chance = require('chance');
 const bot = new Discord.Client();
 const prefix = "!";
-const botToken = require("./bottoken");
+const botToken = require("./bottoken"); //Byt ut detta till "<din_bottoken>";
 
 function play(connection, message) {
     var server =servers[message.guild.id];
