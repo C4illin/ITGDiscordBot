@@ -115,7 +115,7 @@ bot.on("message", (message) => {
                     return;
                 }
                 saldo = data;
-                processFile();          // Or put the next step in a function and invoke it
+                processFile();
             });
             
             function processFile() {
@@ -202,7 +202,7 @@ bot.on("message", (message) => {
                             return;
                         }
                         vinnarensSaldo = parseInt(data)  +  parseInt(bet);
-                        fs.writeFile("wallets/"+betWinner+".txt", vinnarensSaldo);
+                        fs.writeFileSync("wallets/"+betWinner+".txt", vinnarensSaldo);
                         message.channel.send(betWinnerCall+" Ditt saldo är nu: "+vinnarensSaldo);
                         betExist = false;
                     });
@@ -213,7 +213,7 @@ bot.on("message", (message) => {
                         }
                         loserSaldo = parseInt(data)  -  parseInt(bet);
                         message.channel.send(betLoserCall+" Ditt saldo är nu: "+loserSaldo);
-                        fs.writeFile("wallets/"+betLoser+".txt", loserSaldo);
+                        fs.writeFileSync("wallets/"+betLoser+".txt", loserSaldo);
                     });
                 }  
             }
