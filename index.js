@@ -98,12 +98,6 @@ bot.on("message", (message) => {
                     .setColor("0x111111")
             });
             break;
-        case "nti":
-            message.delete(0);
-            message.guild.setIcon("./icon.png")
-                .then(updated => console.log('Updated the guild icon'))
-                .catch(console.error);
-            break;
         case "hur":
             message.channel.send("Av "+hurExempel[Math.floor(Math.random() * hurExempel.length)]);
             break;
