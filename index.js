@@ -73,6 +73,15 @@ var widthSchema = "600";
 var heightSchema = "600";
 
 bot.on("message", (message) => {
+    //console.log(message.Embed.image)
+    if (message.channel.id == "354703852437766157")  {
+        if (message.content.startsWith("http") || message.attachments.size != "0"){
+            message.react("👍");
+            setTimeout(function(){
+                message.react("👎");
+            }, 500);
+        }     
+    }
     if (!message.content.startsWith(prefix)) return;
     if (message.author.bot) return;
     
@@ -400,6 +409,9 @@ bot.on("message", (message) => {
             break;
         case "getid":
             message.channel.send(message.author.id);
+            break;
+        case "getchannelid":
+            message.channel.send(message.channel.id);
             break;
         case "itg,":
         case "itg":
