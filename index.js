@@ -73,7 +73,6 @@ var widthSchema = "600";
 var heightSchema = "600";
 
 bot.on("message", (message) => {
-    //console.log(message.Embed.image)
     if (message.channel.id == "354703852437766157")  {
         if (message.content.startsWith("http") || message.attachments.size != "0"){
             message.react("👍");
@@ -84,9 +83,7 @@ bot.on("message", (message) => {
     }
     if (!message.content.startsWith(prefix)) return;
     if (message.author.bot) return;
-    
-    //console.log(test);
-    
+
     var split = message.content.substring(prefix.length).split(' ');
     
     switch (split[0].toLowerCase()) {
