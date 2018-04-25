@@ -73,7 +73,7 @@ var widthSchema = "600";
 var heightSchema = "600";
 
 bot.on("message", (message) => {
-    if (message.channel.id == "354703852437766157")  {
+    if (message.channel.id == "350332868397891585")  {
         if (message.content.startsWith("http") || message.attachments.size != "0"){
             message.react("👍");
             setTimeout(function(){
