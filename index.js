@@ -57,7 +57,6 @@ var dabRespond = [
 ];
 
 
-
 var inCash;
 var betWinner;
 var betWinnerCall;
@@ -99,7 +98,7 @@ bot.on("message", (message) => {
             });
             message.channel.send({
                 embed: new Discord.RichEmbed()
-                    .addField("Ekonomi kommandon:", "!plånbok - skapar en personlig plånbok åt dig\n!saldo - visar ditt saldo\n!bet <amount> - flipa en slant med någon och se vem som vinner pengarna\n!resetplånbok - resetar din plånbok")
+                    .addField("Ekonomi kommandon:", "!plånbok - skapar en personlig plånbok åt dig\n!saldo - visar ditt saldo\n!bet <amount> - flipa en slant med någon och se vem som vinner pengarna\n!resetplånbok - resetar din plånbok\n!removebet - tar bort det senaste betet")
                     .addField("Musik kommandon:", "!play <url> - spelar en youtube url\n!skip - skippar låten som spelas nu\n!stop - stoppar musiken helt\n!theend - spelar upp ett visst tal")
                     .setColor("0x111111")
             });
@@ -138,9 +137,11 @@ bot.on("message", (message) => {
             break;
         case "removebet":
             betExist = false;
-            message.channel.send("betet är nu borttaget");
+            message.channel.send("Betet på "+bet+" är nu borttaget");
             break;
         case "bet":
+            var vinnarensSaldo = "";
+            var loserSaldo = "";
             fs.readFile("wallets/"+message.author.id+".txt", function read(err, data) {
                 if (err) {
                     message.channel.send("```Du måste skapa en plånbok först\nSkriv !plånbok för att skapa en```");
@@ -148,10 +149,12 @@ bot.on("message", (message) => {
                 }
                 inCash = parseInt(data) + 1;
                 betMain();
+            
+
             });
             function betMain() {
                 if (betExist === false) {
-                    betStarter = message.author.toString();
+                    betStarter = message.member;
                     betStarterId = message.author.id;
                     bet = message.content.substring(5);
                     if (parseInt(inCash) <= parseInt(bet)) {
@@ -163,7 +166,7 @@ bot.on("message", (message) => {
                             message.channel.send("Du kan inte betta negativ nummer");
                             return;
                         }
-                        message.channel.send(betStarter+" bettar "+bet+"\nSkriv !bet för att betta emot");
+                        message.channel.send(betStarter.toString()+" bettar "+bet+"\nSkriv !bet för att betta emot");
                         betExist = true;
                         return;
                     }
@@ -180,21 +183,18 @@ bot.on("message", (message) => {
                         message.channel.send(message.author.toString()+" Du kan inte betta mer än du har");
                         return;
                     }
-                    message.channel.send(betStarter+" och "+message.author.toString()+" bettar om "+bet);
                     betWinner = Math.random() < 0.5 ? betStarterId : message.author.id;
                     if (betWinner === betStarterId) {
                         betWinnerCall = betStarter;
                         betLoser = message.author.id;
-                        betLoserCall = message.author.toString();
+                        betLoserCall = message.member;
                     }
                     else {
-                        betWinnerCall = message.author.toString();
+                        betWinnerCall = message.member;
                         betLoser = betStarterId;
                         betLoserCall = betStarter;
                     }
-                    message.channel.send(betWinnerCall+ " Vann betet på "+bet);
-                    var vinnarensSaldo;
-                    var loserSaldo;
+                    
 
                     fs.readFile("wallets/"+betWinner+".txt", function read(err, data) {
                         if (err) {
@@ -203,20 +203,143 @@ bot.on("message", (message) => {
                         }
                         vinnarensSaldo = parseInt(data)  +  parseInt(bet);
                         fs.writeFileSync("wallets/"+betWinner+".txt", vinnarensSaldo);
-                        message.channel.send(betWinnerCall+" Ditt saldo är nu: "+vinnarensSaldo);
                         betExist = false;
+                        fs.readFile("wallets/"+betLoser+".txt", function read(err2, data2) {
+                            if (err2) {
+                                message.channel.send("```Du måste skapa en plånbok först\nSkriv !plånbok för att skapa en```");
+                                return;
+                            }
+                            loserSaldo = parseInt(data2)  -  parseInt(bet);
+                            fs.writeFileSync("wallets/"+betLoser+".txt", loserSaldo);
+                            
+                            message.channel.send({
+                                embed: new Discord.RichEmbed()
+                                    .addField(betWinnerCall.nickname+ " Vann betet på "+bet, betLoserCall.nickname+" saldo är nu: "+loserSaldo+"\n"+betWinnerCall.nickname+" saldo är nu: "+vinnarensSaldo)
+                                    .setColor("0x009900")
+                            });
+                        });
                     });
-                    fs.readFile("wallets/"+betLoser+".txt", function read(err, data) {
+                }  
+            }
+            break;
+        case "shop":
+            message.channel.send({
+                embed: new Discord.RichEmbed()
+                    .addField("150¤", "Rosa")
+                    .setColor("0xff80ff")
+                });
+            message.channel.send({
+                embed: new Discord.RichEmbed()
+                    .addField("200¤", "Grön")
+                    .setColor("0x339933")
+                });
+            message.channel.send({
+                embed: new Discord.RichEmbed()
+                    .addField("300¤", "Orange")
+                    .setColor("0x#ff8533")
+                });
+            message.channel.send({
+                embed: new Discord.RichEmbed()
+                    .addField("500¤", "ValfriFärg")
+                    .addBlankField()
+                    .addField("Hur man köper:", "Köp en färg genom att skriva !köp följt av namnet på färgen")
+                    .setColor("0x"+("000000"+Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6))
+                });
+            break;
+        case "köp":
+            function saldoRest(a) {
+                
+            }
+            switch (message.content.substring(5).toLowerCase()) {
+                case "rosa":
+                    var pris = 150;
+                    var saldo;
+                    fs.readFile("wallets/"+message.author.id+".txt", function read(err, data) {
                         if (err) {
                             message.channel.send("```Du måste skapa en plånbok först\nSkriv !plånbok för att skapa en```");
                             return;
                         }
-                        loserSaldo = parseInt(data)  -  parseInt(bet);
-                        message.channel.send(betLoserCall+" Ditt saldo är nu: "+loserSaldo);
-                        fs.writeFileSync("wallets/"+betLoser+".txt", loserSaldo);
+                        saldo = data;
+                        if (saldo < pris) {
+                            var saknar = pris - saldo;
+                            message.channel.send("Du saknar "+saknar+"¤");
+                            return;
+                        }
+                        var saldoLeft = saldo - pris
+                        fs.writeFileSync("wallets/"+message.author.id+".txt", saldoLeft);
+                        message.member.addRole("448589083653177347");
                     });
-                }  
+                    break;
+                case "grön":
+                    var pris = 200;
+                    var saldo;
+                    fs.readFile("wallets/"+message.author.id+".txt", function read(err, data) {
+                        if (err) {
+                            message.channel.send("```Du måste skapa en plånbok först\nSkriv !plånbok för att skapa en```");
+                            return;
+                        }
+                        saldo = data;
+                        if (saldo < pris) {
+                            var saknar = pris - saldo;
+                            message.channel.send("Du saknar "+saknar+"¤");
+                            return;
+                        }
+                        var saldoLeft = saldo - pris
+                        fs.writeFileSync("wallets/"+message.author.id+".txt", saldoLeft);
+                        message.member.addRole("448589083653177347");
+                    });
+                    break;
+                case "orange":
+                    var pris = 300;
+                    var saldo;
+                    fs.readFile("wallets/"+message.author.id+".txt", function read(err, data) {
+                        if (err) {
+                            message.channel.send("```Du måste skapa en plånbok först\nSkriv !plånbok för att skapa en```");
+                            return;
+                        }
+                        saldo = data;
+                        if (saldo < pris) {
+                            var saknar = pris - saldo;
+                            message.channel.send("Du saknar "+saknar+"¤");
+                            return;
+                        }
+                        var saldoLeft = saldo - pris
+                        fs.writeFileSync("wallets/"+message.author.id+".txt", saldoLeft);
+                        message.member.addRole("448589083653177347");
+                    });
+                    break;
+                case "valfrifärg":
+                    var pris = 500;
+                    var saldo;
+                    fs.readFile("wallets/"+message.author.id+".txt", function read(err, data) {
+                        if (err) {
+                            message.channel.send("```Du måste skapa en plånbok först\nSkriv !plånbok för att skapa en```");
+                            return;
+                        }
+                        saldo = data;
+                        if (saldo < pris) {
+                            var saknar = pris - saldo;
+                            message.channel.send("Du saknar "+saknar+"¤");
+                            return;
+                        }
+                        var saldoLeft = saldo - pris
+                        fs.writeFileSync("wallets/"+message.author.id+".txt", saldoLeft);
+                        message.channel.send("Ändra färg på din roll med kommandot !färg <hexkod>\nSkriv !hex för att få fram en slumpmässig hex kod")
+                        message.guild.createRole({
+                            name: message.member.nickname,
+                            position: 3,
+                        })
+                        message.member.addRole(message.guild.roles.find('name', message.member.nickname))
+                    });
+                    break;
+                default:
+                    message.channel.send(message.content.substring(5)+" är inte en färg som säljs, skriv !shop för att se vilka färger som finns\nFör valfrifärg skriver du !köp valfrifärg");
             }
+            break;
+        case "färg":
+            break;
+        case "roller":
+            message.channel.send(message.guild.roles);
             break;
         case "plånbok":
             fs.stat("wallets/"+message.author.id+".txt", function(err, stat) {
