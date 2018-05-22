@@ -329,7 +329,7 @@ bot.on("message", (message) => {
                             name: message.member.nickname,
                             position: 3,
                         })
-                        message.member.addRole(message.guild.roles.find('name', message.member.nickname))
+                            .then(newrole => message.member.addRole(newrole))
                     });
                     break;
                 default:
@@ -337,6 +337,7 @@ bot.on("message", (message) => {
             }
             break;
         case "färg":
+            message.member.roles.find("name", message.member.nickname).setColor(message.content.substring(6))
             break;
         case "roller":
             message.channel.send(message.guild.roles);
