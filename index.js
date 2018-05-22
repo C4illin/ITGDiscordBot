@@ -327,7 +327,7 @@ bot.on("message", (message) => {
                         message.channel.send("Ändra färg på din roll med kommandot !färg <hexkod>\nSkriv !hex för att få fram en slumpmässig hex kod")
                         message.guild.createRole({
                             name: message.member.nickname,
-                            position: 3,
+                            position: 7,
                         })
                             .then(newrole => message.member.addRole(newrole))
                     });
@@ -340,7 +340,7 @@ bot.on("message", (message) => {
             message.member.roles.find("name", message.member.nickname).setColor(message.content.substring(6))
             break;
         case "roller":
-            message.channel.send(message.guild.roles);
+            console.log(message.guild.roles);
             break;
         case "plånbok":
             fs.stat("wallets/"+message.author.id+".txt", function(err, stat) {
