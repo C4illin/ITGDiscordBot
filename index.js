@@ -267,7 +267,7 @@ bot.on("message", (message) => {
                         }
                         var saldoLeft = saldo - pris
                         fs.writeFileSync("wallets/"+message.author.id+".txt", saldoLeft);
-                        message.member.addRole("448589083653177347");
+                        message.member.addRole("448615484749905941");
                     });
                     break;
                 case "grön":
@@ -286,7 +286,7 @@ bot.on("message", (message) => {
                         }
                         var saldoLeft = saldo - pris
                         fs.writeFileSync("wallets/"+message.author.id+".txt", saldoLeft);
-                        message.member.addRole("448589083653177347");
+                        message.member.addRole("448615705168838667");
                     });
                     break;
                 case "orange":
@@ -305,7 +305,7 @@ bot.on("message", (message) => {
                         }
                         var saldoLeft = saldo - pris
                         fs.writeFileSync("wallets/"+message.author.id+".txt", saldoLeft);
-                        message.member.addRole("448589083653177347");
+                        message.member.addRole("448615774374985729");
                     });
                     break;
                 case "valfrifärg":
