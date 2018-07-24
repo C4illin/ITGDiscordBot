@@ -4,6 +4,7 @@
   "description": "En bot till discord med funktioner som att visa schemat",
   "main": "index.js",
   "dependencies": {
+    "better-cleverbot-io": "^1.0.2",
     "bufferutil": "^3.0.3",
     "chance": "^1.0.11",
     "date": "^1.0.2",
@@ -24,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChilladeChillin/ITGDiscordBot.git"
+    "url": "git+https://github.com/C4illin/ITGDiscordBot"
   },
   "author": "",
   "license": "Unlicense",
   "bugs": {
-    "url": "https://github.com/ChilladeChillin/ITGDiscordBot/issues"
+    "url": "https://github.com/C4illin/ITGDiscordBot/issues"
   },
-  "homepage": "https://github.com/ChilladeChillin/ITGDiscordBot#readme"
+  "homepage": "https://github.com/C4illin/ITGDiscordBot#readme"
 }

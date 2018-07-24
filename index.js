@@ -4,9 +4,12 @@ const fs = require("fs");
 const date = require("date");
 const YTDL = require("ytdl-core");
 const Chance = require('chance');
+var config = require('./config.json');
+var cleverbot = require("better-cleverbot-io"),
+clever = new cleverbot({user:config.apiuser, key:config.apikey,nick:"discordbot"});
 const bot = new Discord.Client();
 const prefix = "!";
-const botToken = require("./bottoken"); //Byt ut detta till "<din_bottoken>";
+const botToken = config.discord;
 
 function play(connection, message) {
     var server =servers[message.guild.id];
@@ -25,9 +28,14 @@ var chance = new Chance();
 
 bot.on("ready", () => {
     bot.user.setActivity("Skriv !help för hjälp");
-    console.log("Klar");
+    console.log("Discord.js Connected");
 });
 
+clever.create().then(() => {
+    console.log("Cleverbot.io Connected");
+}).catch(err => {
+    console.log("Cleverbot.io error: "+err);
+});
 var hurExempel = require('./hurExempel');
 
 var klasslista = require('./klasslista');
@@ -80,8 +88,13 @@ bot.on("message", (message) => {
             }, 500);
         }     
     }
-    if (!message.content.startsWith(prefix)) return;
     if (message.author.bot) return;
+    if (!message.content.startsWith(prefix) && message.channel.id == "471312625947508756") {
+        clever.ask(message.content).then(response => {
+            message.channel.send(response);
+        });
+    }
+    if (!message.content.startsWith(prefix)) return;
 
     var split = message.content.substring(prefix.length).split(' ');
     
