@@ -1,13 +1,17 @@
 # ITGDiscordBot
+
 En bot till discord med funktioner som att visa schemat
 
-# Installation
-1. Klona https://github.com/ChilladeChillin/ITGDiscordBot.git
-2. Installera node.js och öppna ett kommandofält i maappen (skift klicka i mappen) och skriv "npm i"
-3. Gå in här https://discordapp.com/developers/applications/me och få fram en bot token som du sen skriver in i index.js
-4. Skriv "node ." i kommandofält du öppna förut
-5. invitea boten till servern genom att gå till https://discordapp.com/oauth2/authorize?client_id=>CLIENT_ID_HERE<&scope=bot (glöm ej att fylla i client id)
-6. Testa så att boten funkar korrekt genom att skriva !help
-7. Installera FFmpeg om du vill kunna spela musik
-8. ???
-9. Profit!
+## Installation
+
+1. installera node.js
+2. `git clone https://github.com/ChilladeChillin/ITGDiscordBot.git`
+3. `cd ITGDiscordBot`
+4. `npm i`
+5. `ren exempel.config.json config.json`
+6. Gå in här <https://discordapp.com/developers/applications/me> och få fram en bot token
+7. Öppna config.json och fyll i alla fält med korrekt info
+8. `node .` i kommandotolken du öppna innan
+9. invitea boten till servern genom att gå till <https://discordapp.com/oauth2/authorize?client_id=*CLIENT_ID_HERE*&scope=bot> (glöm ej att fylla i client id)
+10. Testa så att boten funkar korrekt genom att skriva !ping där du bjöd in den
+11. Installera FFmpeg och lägg till i PATH om du vill kunna spela musik
