@@ -34,7 +34,7 @@ bot.on("ready", () => {
 clever.create().then(() => {
     console.log("Cleverbot.io Connected");
 }).catch(err => {
-    console.log("Cleverbot.io error: "+err);
+    console.log("Cleverbot.io "+err);
 });
 var hurExempel = require('./hurExempel');
 
