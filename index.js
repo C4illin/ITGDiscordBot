@@ -265,7 +265,7 @@ bot.on("message", (message) => {
                             message.channel.send("Du saknar "+saknar+"¤");
                             return;
                         }
-                        var saldoLeft = saldo - pris
+                        var saldoLeft = saldo - pris;
                         fs.writeFileSync("wallets/"+message.author.id+".txt", saldoLeft);
                         message.member.addRole("448615484749905941");
                     });
@@ -284,7 +284,7 @@ bot.on("message", (message) => {
                             message.channel.send("Du saknar "+saknar+"¤");
                             return;
                         }
-                        var saldoLeft = saldo - pris
+                        var saldoLeft = saldo - pris;
                         fs.writeFileSync("wallets/"+message.author.id+".txt", saldoLeft);
                         message.member.addRole("448615705168838667");
                     });
@@ -303,7 +303,7 @@ bot.on("message", (message) => {
                             message.channel.send("Du saknar "+saknar+"¤");
                             return;
                         }
-                        var saldoLeft = saldo - pris
+                        var saldoLeft = saldo - pris;
                         fs.writeFileSync("wallets/"+message.author.id+".txt", saldoLeft);
                         message.member.addRole("448615774374985729");
                     });
@@ -322,14 +322,14 @@ bot.on("message", (message) => {
                             message.channel.send("Du saknar "+saknar+"¤");
                             return;
                         }
-                        var saldoLeft = saldo - pris
+                        var saldoLeft = saldo - pris;
                         fs.writeFileSync("wallets/"+message.author.id+".txt", saldoLeft);
-                        message.channel.send("Ändra färg på din roll med kommandot !färg <hexkod>\nSkriv !hex för att få fram en slumpmässig hex kod")
+                        message.channel.send("Ändra färg på din roll med kommandot !färg <hexkod>\nSkriv !hex för att få fram en slumpmässig hex kod");
                         message.guild.createRole({
                             name: message.member.nickname,
                             position: 7,
                         })
-                            .then(newrole => message.member.addRole(newrole))
+                            .then(newrole => message.member.addRole(newrole));
                     });
                     break;
                 default:
@@ -337,7 +337,7 @@ bot.on("message", (message) => {
             }
             break;
         case "färg":
-            message.member.roles.find("name", message.member.nickname).setColor(message.content.substring(6))
+            message.member.roles.find("name", message.member.nickname).setColor(message.content.substring(6));
             break;
         case "roller":
             console.log(message.guild.roles);
@@ -420,16 +420,17 @@ bot.on("message", (message) => {
                 break;
         case "s":
         case "schema":
+            var valfriVecka;
             Date.prototype.getWeek = function() {
                 var onejan = new Date(this.getFullYear(), 0, 1);
                 return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
             };
             var weekNumber = (new Date()).getWeek();
             if (message.content.charAt(4) === "e") {
-                var valfriVecka = message.content.substring(8);
+                valfriVecka = message.content.substring(8);
             }
             else {
-                var valfriVecka = message.content.substring(3);
+                valfriVecka = message.content.substring(3);
             }
 
             if (valfriVecka === "") {
@@ -508,18 +509,19 @@ bot.on("message", (message) => {
             break;
         case "hd":
         case "hexdisplay":
+            var hexMessageFix;
             var hexMessage;
             if (message.content.charAt(4) === "d") {
-                var hexMessage = message.content.substring(12);
+                hexMessage = message.content.substring(12);
             }
             else {
-                var hexMessage = message.content.substring(4);
+                hexMessage = message.content.substring(4);
             }
             if (hexMessage.charAt(0) === "#") {
-                var hexMessageFix = hexMessage.substring(1);
+                hexMessageFix = hexMessage.substring(1);
             }
             else {
-                var hexMessageFix = hexMessage;
+                hexMessageFix = hexMessage;
             }
             message.channel.send({
                 embed: new Discord.RichEmbed()
