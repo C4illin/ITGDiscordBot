@@ -342,7 +342,7 @@ bot.on("message", (message) => {
 		break;
 	case "färg":
 		if (message.channel.type === "dm") {
-			message.channel.send("Detta kommando funakr inte i DM");
+			message.channel.send("Detta kommando funkar inte i DM");
 			break;
 		}
 		if (message.member.roles.find("name", message.member.nickname) == null) {
