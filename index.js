@@ -609,12 +609,17 @@ bot.on("message", (message) => {
 			var slang_def = $(".definition").first();
 			var slang_defText = slang_def.text();
 
+			var slang_ex = $(".example").first();
+			var slang_extext = slang_ex.text();
+
 			if (slang_titleText == "" && slang_defText == "") {
 				message.channel.send(new Discord.RichEmbed().addField("**Kunde inte hitta slanget \"" + split[1] + "\".**").setColor(0xffcc77));
 			} else {
 				message.channel.send({
 					embed: new Discord.RichEmbed()
-						.addField("**" + slang_titleText + "**", slang_defText)
+						//.setAuthor()
+						.addField(slang_titleText,slang_defText)
+						.addField("Exempel:",slang_extext)
 						.setColor(0xffcc77)
 				});		
 			}
