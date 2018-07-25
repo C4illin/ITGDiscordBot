@@ -598,9 +598,8 @@ bot.on("message", (message) => {
 		message.channel.send("https://www.google.se/search?q="+googleSearch);
 		break;
 	case "slang":
-		var slangSearch = message.content.substring(7).replace(/å/g,"%E5").replace(/ä/g,"%E4").replace(/ö/g,"%F6")
+		var slangSearch = message.content.substring(7).replace(/å/gi,"%E5").replace(/ä/gi,"%E4").replace(/ö/gi,"%F6")
 		var slang_url = "http://www.slangopedia.se/ordlista/?ord=" + slangSearch;
-		var slang_add = "http://www.slangopedia.se/laggtill/?ord=" + slangSearch;
 		request(slang_url, function(err, resp, body) {
 			var $ = cheerio.load(body);
 
@@ -613,7 +612,11 @@ bot.on("message", (message) => {
 			if (slang_titleText == "" && slang_defText == "") {
 				message.channel.send(new Discord.RichEmbed().addField("**Kunde inte hitta slanget \"" + split[1] + "\".**").setColor(0xffcc77));
 			} else {
-				message.channel.send(new Discord.RichEmbed().addField("**" + slang_titleText + "**", slang_defText).setColor(0xffcc77));
+				message.channel.send({
+					embed: new Discord.RichEmbed()
+						.addField("**" + slang_titleText + "**", slang_defText)
+						.setColor(0xffcc77)
+				});		
 			}
 		});
 		break;
