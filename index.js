@@ -80,6 +80,26 @@ var pistolLaddad = false;
 var widthSchema = "600";
 var heightSchema = "600";
 
+function fixSwedish(i) {
+	if(i < 3) {
+		return ":a";
+	}else {
+		return ":e";
+	}
+}
+
+function timeConverter(UNIX_timestamp) {
+	var a = new Date(UNIX_timestamp);
+	var months = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
+	var year = a.getFullYear();
+	var month = months[a.getMonth()];
+	var date = a.getDate();
+	var hour = a.getHours();
+	var min = a.getMinutes();
+	var time = date + fixSwedish(date) + " " + month + " " + year + " klockan " + hour + ":" + min;
+	return time;
+}
+
 bot.on("message", (message) => {
 	if (message.channel.id == "350332868397891585")  {
 		if (message.content.startsWith("http") || message.attachments.size != "0"){
@@ -598,7 +618,7 @@ bot.on("message", (message) => {
 		message.channel.send("https://www.google.se/search?q="+googleSearch);
 		break;
 	case "slang":
-		var slangSearch = message.content.substring(7).replace(/å/gi,"%E5").replace(/ä/gi,"%E4").replace(/ö/gi,"%F6")
+		var slangSearch = message.content.substring(7).replace(/å/gi,"%E5").replace(/ä/gi,"%E4").replace(/ö/gi,"%F6");
 		var slang_url = "http://www.slangopedia.se/ordlista/?ord=" + slangSearch;
 		request(slang_url, function(err, resp, body) {
 			var $ = cheerio.load(body);
@@ -607,10 +627,11 @@ bot.on("message", (message) => {
 			var slang_titleText = slang_title.text();
 
 			var slang_def = $(".definition").first();
-			var slang_defText = slang_def.text();
+			var slang_test = slang_def.find("br").replaceWith("\n");
+			var slang_defText =slang_test.text();
 
-			var slang_ex = $(".example").first();
-			var slang_extext = slang_ex.text();
+			$(".example").first().find("br").replaceWith("\n");
+			var slang_extext = $(".example").text();
 
 			if (slang_titleText == "" && slang_defText == "") {
 				message.channel.send(new Discord.RichEmbed().addField("**Kunde inte hitta slanget \"" + split[1] + "\".**").setColor(0xffcc77));
@@ -618,32 +639,15 @@ bot.on("message", (message) => {
 				message.channel.send({
 					embed: new Discord.RichEmbed()
 						//.setAuthor()
-						.addField(slang_titleText,slang_defText)
-						.addField("Exempel:",slang_extext)
+						.addField(slang_titleText.charAt(0).toUpperCase() + slang_titleText.slice(1), slang_defText)
+						.addBlankField()
+						.addField("Exempel:","*"+slang_extext+"*")
 						.setColor(0xffcc77)
 				});		
 			}
 		});
 		break;
 	case "info":
-		function fixSwedish(i) {
-			if(i < 3) {
-				return ":a";
-			}else {
-				return ":e";
-			}
-		}
-		function timeConverter(UNIX_timestamp) {
-			var a = new Date(UNIX_timestamp);
-			var months = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
-			var year = a.getFullYear();
-			var month = months[a.getMonth()];
-			var date = a.getDate();
-			var hour = a.getHours();
-			var min = a.getMinutes();
-			var time = date + fixSwedish(date) + " " + month + " " + year + " klockan " + hour + ":" + min;
-			return time;
-		}
 		message.author.send({
 			embed: new Discord.RichEmbed()
 				.addField("Serverinformation:", "Antal medlemmar: " + message.guild.memberCount + "\nDu gick med den " + timeConverter(message.guild.joinedTimestamp) + "\nServerns admin är: " + message.guild.owner)
@@ -665,7 +669,7 @@ bot.on("message", (message) => {
 		if (message.channel.type === "text") {
 			var statement = message.content.substring(5);
 			if (statement.endsWith("?")) {
-				var statement = message.content.substring(5).replace("?", ".");
+				statement = message.content.substring(5).replace("?", ".");
 			}
 			message.channel.send(message.guild.members.random().toString()+" "+statement);
 		}
@@ -673,7 +677,7 @@ bot.on("message", (message) => {
 	case "vemalla":
 		var statement = message.content.substring(9);
 		if (statement.endsWith("?")) {
-			var statement = message.content.substring(9).replace("?", ".");
+			statement = message.content.substring(9).replace("?", ".");
 		}
 		message.channel.send(klasslista[Math.floor(Math.random()*klasslista.length)]+" "+statement);
 		break;
