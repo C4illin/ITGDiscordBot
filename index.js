@@ -6,11 +6,13 @@ const cheerio = require("cheerio");
 const YTDL = require("ytdl-core");
 const Chance = require("chance");
 var config = require("./config.json");
-var cleverbot = require("better-cleverbot-io"),
-	clever = new cleverbot({user:config.apiuser, key:config.apikey,nick:"discordbot"});
+var cleverbot = require("cleverbot.io"),
+	clever = new cleverbot(config.apiuser, config.apikey);
 const bot = new Discord.Client();
 const prefix = "!";
 const botToken = config.discord;
+
+clever.setNick("discord");
 
 function play(connection, message) {
 	var server =servers[message.guild.id];
@@ -32,11 +34,12 @@ bot.on("ready", () => {
 	console.log("Discord.js Connected");
 });
 
-clever.create().then(() => {
-	console.log("Cleverbot.io Connected");
-}).catch(err => {
-	console.log("Cleverbot.io "+err);
+clever.create(function (err, session) {
+	// session is your session name, it will either be as you set it previously, or cleverbot.io will generate one for you
+	
+	// Woo, you initialized cleverbot.io.  Insert further code here
 });
+
 var hurExempel = require("./hurExempel");
 
 var klasslista = require("./klasslista");
@@ -111,8 +114,8 @@ bot.on("message", (message) => {
 	}
 	if (message.author.bot) return;
 	if (!message.content.startsWith(prefix) && message.channel.id == "471312625947508756") {
-		clever.ask(message.content).then(response => {
-			message.channel.send(response);
+		clever.ask(message.content, function (err, response) {
+			message.channel.send(response); // Will likely be: "Living in a lonely world"
 		});
 	}
 	if (!message.content.startsWith(prefix)) return;
