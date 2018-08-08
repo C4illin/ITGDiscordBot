@@ -26,5 +26,6 @@ module.exports = {
             "always"
         ],
         "no-console": "off",
+        "no-redeclare": 1,
     }
 };

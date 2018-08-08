@@ -114,7 +114,7 @@ bot.on("message", (message) => {
 		}     
 	}
 	if (message.author.bot) return;
-	if (!message.content.startsWith(prefix) && message.channel.id == "471312625947508756") {
+	if (!message.content.startsWith(prefix) && message.channel.id == "350324988676407296") {
 		clever.ask(message.content, function (err, response) {
 			if (err) {
 				console.log(err);
@@ -635,11 +635,12 @@ bot.on("message", (message) => {
 			var slang_titleText = slang_title.text();
 
 			var slang_def = $(".definition").first();
-			var slang_test = slang_def.find("br").replaceWith("\n");
-			var slang_defText =slang_test.text();
+			slang_def.find("br").replaceWith("\n");
+			var slang_defText = slang_def.text();
 
-			$(".example").first().find("br").replaceWith("\n");
-			var slang_extext = $(".example").text();
+			var slang_ex = $(".example").first();
+			slang_ex.find("br").replaceWith("\n");
+			var slang_exText = slang_ex.text();
 
 			if (slang_titleText == "" && slang_defText == "") {
 				message.channel.send(new Discord.RichEmbed().addField("**Kunde inte hitta slanget \"" + split[1] + "\".**").setColor(0xffcc77));
@@ -649,7 +650,7 @@ bot.on("message", (message) => {
 						//.setAuthor()
 						.addField(slang_titleText.charAt(0).toUpperCase() + slang_titleText.slice(1), slang_defText)
 						.addBlankField()
-						.addField("Exempel:","*"+slang_extext+"*")
+						.addField("Exempel:","*"+slang_exText+"*")
 						.setColor(0xffcc77)
 				});		
 			}
