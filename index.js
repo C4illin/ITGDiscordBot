@@ -35,9 +35,10 @@ bot.on("ready", () => {
 });
 
 clever.create(function (err, session) {
-	// session is your session name, it will either be as you set it previously, or cleverbot.io will generate one for you
-	
-	// Woo, you initialized cleverbot.io.  Insert further code here
+	console.log("Cleverbot.io Connected");
+	if (err){
+		console.log(err);
+	}
 });
 
 var hurExempel = require("./hurExempel");
@@ -115,6 +116,10 @@ bot.on("message", (message) => {
 	if (message.author.bot) return;
 	if (!message.content.startsWith(prefix) && message.channel.id == "471312625947508756") {
 		clever.ask(message.content, function (err, response) {
+			if (err) {
+				console.log(err);
+				return;
+			}
 			message.channel.send(response); // Will likely be: "Living in a lonely world"
 		});
 	}
