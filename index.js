@@ -115,13 +115,15 @@ bot.on("message", (message) => {
 	}
 	if (message.author.bot) return;
 	if (!message.content.startsWith(prefix) && (message.channel.id == config.cleverbot || message.channel.type === "dm")) {
+		message.channel.startTyping();
 		clever.ask(message.content, function (err, response) {
 			if (err) {
 				console.log(err);
 				return;
 			}
-			message.channel.send(response); // Will likely be: "Living in a lonely world"
+			message.channel.send(response);
 		});
+		message.channel.stopTyping();
 	}
 	if (!message.content.startsWith(prefix)) return;
 
