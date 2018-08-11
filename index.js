@@ -114,7 +114,7 @@ bot.on("message", (message) => {
 		}     
 	}
 	if (message.author.bot) return;
-	if (!message.content.startsWith(prefix) && message.channel.id == config.cleverbot) {
+	if (!message.content.startsWith(prefix) && message.channel.id == config.cleverbot || message.channel.type === "dm") {
 		clever.ask(message.content, function (err, response) {
 			if (err) {
 				console.log(err);
