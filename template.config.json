@@ -1,5 +1,7 @@
 {	
     "discord":"Discord Key",	
     "apiuser":"Cleverbot.io user key",	
-    "apikey":"Cleverbot.io api key"	
+    "apikey":"Cleverbot.io api key",
+    "memeroom":"Use !getchannelid",
+    "cleverbot":"Use !getchannelid"	
 } 

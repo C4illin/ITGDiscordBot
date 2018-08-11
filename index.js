@@ -105,7 +105,7 @@ function timeConverter(UNIX_timestamp) {
 }
 
 bot.on("message", (message) => {
-	if (message.channel.id == "350332868397891585")  {
+	if (message.channel.id == config.memeroom)  {
 		if (message.content.startsWith("http") || message.attachments.size != "0"){
 			message.react("👍");
 			setTimeout(function(){
@@ -114,7 +114,7 @@ bot.on("message", (message) => {
 		}     
 	}
 	if (message.author.bot) return;
-	if (!message.content.startsWith(prefix) && message.channel.id == "350324988676407296") {
+	if (!message.content.startsWith(prefix) && message.channel.id == config.cleverbot) {
 		clever.ask(message.content, function (err, response) {
 			if (err) {
 				console.log(err);
