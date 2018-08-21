@@ -482,7 +482,7 @@ bot.on("message", (message) => {
 		message.channel.send({
 			embed: new Discord.RichEmbed()
 				.setAuthor("Schema v."+valfriVecka+":")
-				.setImage("http://www.novasoftware.se/ImgGen/schedulegenerator.aspx?format=png&schoolid=80220/sv-se&type=1&id={EA17E85E-CBFC-4836-935C-04780337F6D5}&period=&week="+valfriVecka+
+				.setImage("http://www.novasoftware.se/ImgGen/schedulegenerator.aspx?format=png&schoolid=80220/sv-se&type=1&id={5FA2E621-D442-4D30-A272-0B8157D08344}&period=&week="+valfriVecka+
 					"&mode=0&printer=0&colors=32&head=0&clock=0&foot=0&day=0&width="+widthSchema+"&height="+heightSchema+"&maxwidth=1883&maxheight=847")
 				.setColor("0x"+("000000"+Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6))
 		});
