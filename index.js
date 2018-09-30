@@ -30,11 +30,11 @@ function play(connection, message) {
 var chance = new Chance();
 
 bot.on("ready", () => {
-	bot.user.setActivity("Skriv !help för hjälp");
+	bot.user.setActivity("!help", {type: "LISTENING"});
 	console.log("Discord.js Connected");
 });
 
-clever.create(function (err, session) {
+clever.create(function (err) {
 	console.log("Cleverbot.io Connected");
 	if (err){
 		console.log(err);
@@ -661,7 +661,7 @@ bot.on("message", (message) => {
 	case "info":
 		message.author.send({
 			embed: new Discord.RichEmbed()
-				.addField("Serverinformation:", "Antal medlemmar: " + message.guild.memberCount + "\nDu gick med den " + timeConverter(message.guild.joinedTimestamp) + "\nServerns admin är: " + message.guild.owner)
+				.addField("Serverinformation:", "Antal medlemmar: " + message.guild.members.filter(member => !member.user.bot).size + "\nDu gick med den " + timeConverter(message.guild.joinedTimestamp) + "\nServerns admin är: " + message.guild.owner)
 				.setThumbnail(message.guild.iconURL)
 				.setColor("0x111111")
 		});
@@ -686,16 +686,15 @@ bot.on("message", (message) => {
 		}
 		break;
 	case "vemalla":
-		var statement = message.content.substring(9);
+		statement = message.content.substring(9);
 		if (statement.endsWith("?")) {
 			statement = message.content.substring(9).replace("?", ".");
 		}
 		message.channel.send(klasslista[Math.floor(Math.random()*klasslista.length)]+" "+statement);
 		break;
-		/*case "test":
-			var meddelandet = chance.currency();
-			message.channel.send("Här: "+JSON.stringify(meddelandet));
-			break;*/
+	case "test":
+		//för snabba test
+		break;
 	default:
 		message.channel.send("```Detta kommando existerar inte (än)\nSkriv !help för att se de kommandon som faktiskt existerar```");
 	}
