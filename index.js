@@ -559,16 +559,18 @@ bot.on("message", (message) => {
 			hexMessage = message.content.substring(4);
 		}
 		if (hexMessage.charAt(0) === "#") {
-			hexMessageFix = hexMessage.substring(1);
+			hexMessageFix = hexMessage.substring(1)+"000000";
 		}
 		else {
-			hexMessageFix = hexMessage;
+			hexMessageFix = hexMessage+"000000";
 		}
+		hexMessage=hexMessageFix.substr(0,6);
+		console.log(hexMessage);
 		message.channel.send({
 			embed: new Discord.RichEmbed()
 				.setAuthor("Hex:")
-				.setDescription("#"+hexMessageFix)
-				.setColor("0x"+hexMessageFix)
+				.setDescription("#"+hexMessage)
+				.setColor("0x"+hexMessage)
 		});
 		break;
 	case "getid":
