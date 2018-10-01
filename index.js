@@ -565,7 +565,6 @@ bot.on("message", (message) => {
 			hexMessageFix = hexMessage+"000000";
 		}
 		hexMessage=hexMessageFix.substr(0,6);
-		console.log(hexMessage);
 		message.channel.send({
 			embed: new Discord.RichEmbed()
 				.setAuthor("Hex:")
