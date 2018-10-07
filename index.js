@@ -126,7 +126,7 @@ bot.on("message", (message) => {
 		message.channel.stopTyping();
 	}
 	if (!message.content.startsWith(prefix)) return;
-
+	
 	var split = message.content.substring(prefix.length).split(" ");
 	
 	switch (split[0].toLowerCase()) {
@@ -502,7 +502,7 @@ bot.on("message", (message) => {
 	case "say":
 		message.delete(0);
 		if (message.author.id==="164283691802165250") {
-			message.channel.send(message.content.substring(5));
+			message.channel.send(message.content.args[0]);
 		}
 		else {
 			message.author.send("Du har inte tillåtelse att använda detta kommando");
@@ -530,7 +530,7 @@ bot.on("message", (message) => {
 					message.react("👎");
 				}, 500);
 			}).catch(function() {
-				console.log("Reaktionen gick inte hela vägen fram");
+				console.log("Reaktionen gick inte hela vägen fram (saknar antagligen rätt tilstånd)");
 			});
 		break;
 	case "pollpin":
@@ -550,26 +550,12 @@ bot.on("message", (message) => {
 		break;
 	case "hd":
 	case "hexdisplay":
-		var hexMessageFix;
-		var hexMessage;
-		if (message.content.charAt(4) === "d") {
-			hexMessage = message.content.substring(12);
-		}
-		else {
-			hexMessage = message.content.substring(4);
-		}
-		if (hexMessage.charAt(0) === "#") {
-			hexMessageFix = hexMessage.substring(1)+"000000";
-		}
-		else {
-			hexMessageFix = hexMessage+"000000";
-		}
-		hexMessage=hexMessageFix.substr(0,6);
+		var hexCode = (message.content.split(" ").pop().replace("#","").trim()+"000000").substr(0,6);
 		message.channel.send({
 			embed: new Discord.RichEmbed()
 				.setAuthor("Hex:")
-				.setDescription("#"+hexMessage)
-				.setColor("0x"+hexMessage)
+				.setDescription("#"+hexCode)
+				.setColor("0x"+hexCode)
 		});
 		break;
 	case "getid":
