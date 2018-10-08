@@ -2,7 +2,6 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const request = require("request");
 const cheerio = require("cheerio");
-//const date = require("date");
 const YTDL = require("ytdl-core");
 const Chance = require("chance");
 var config = require("./config.json");
