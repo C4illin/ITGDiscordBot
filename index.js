@@ -4,6 +4,7 @@ const request = require("request");
 const cheerio = require("cheerio");
 const YTDL = require("ytdl-core");
 const Chance = require("chance");
+const ms = require("./minestat.js");
 var config = require("./config.json");
 var cleverbot = require("cleverbot.io"),
 	clever = new cleverbot(config.apiuser, config.apikey);
@@ -137,10 +138,6 @@ bot.on("message", (message) => {
 				.addField("Allmäna kommandon:", "!help - visar denna meny\n!dab - sprid cancer\n!poll <fråga> - Starta en ja eller nej fråga\n!pinpoll - samma som !poll fast den pinnar också\n!borde - låt boten svara på livets svåra frågor\n!ryss - spela rysk roulette\n!nummer <nummer1>-<nummer2> - ger dig ett slumpmässigt nummer\n!vem <påstående> - låter boten välja vem påståendet bäst passar in på\n!hur - säger hur något hände\n!tid - ger en slumpmässig tid\n!slang <ord> - söker upp betydelsen av ordet")
 				.addField("Skolrelaterade kommandon:", "!schema - visar veckans schema\n!schemavecka <vecka> - visar schemat från en viss vecka\n!vecka - visar veckan\n!wikipedia <sida> - låter dig gå till en viss Wikipedia hemsida\n!wikise <sida> - låter dig gå till en svenska Wikipedia sida\n!wikisök <sök> - söker på Wikipedia\n!google <sök> - söker på google")
 				.addField("Discord kommandon:", "!hex - ger dig en slumpmässig färg\n!hexdisplay <hex> - visar fägen som det inskrivna hex nummret ger\n!github - skickar länken till botens github repo\n!ping - visar botens internal ping (för felsökning)\n!getid - visar ditt user id\n!info - visar info om servern")
-				.setColor("0x111111")
-		});
-		message.channel.send({
-			embed: new Discord.RichEmbed()
 				.addField("Ekonomi kommandon:", "!plånbok - skapar en personlig plånbok åt dig\n!saldo - visar ditt saldo\n!bet <amount> - flipa en slant med någon och se vem som vinner pengarna\n!resetplånbok - resetar din plånbok\n!removebet - tar bort det senaste betet")
 				.addField("Musik kommandon:", "!play <url> - spelar en youtube url\n!skip - skippar låten som spelas nu\n!stop - stoppar musiken helt\n!theend - spelar upp ett visst tal")
 				.setColor("0x111111")
@@ -575,6 +572,30 @@ bot.on("message", (message) => {
 	case "är":
 	case "borde":
 		message.channel.send(borde[Math.floor(Math.random()*borde.length)]+" "+message.author.toString());
+		break;
+	case "minecraft":
+	case "mc":
+		ms.init(config.minecraft, 25565, function()
+		{
+			if(ms.online)
+			{
+				message.channel.send({embed: new Discord.RichEmbed()
+					.setTitle("ITGmine.gq")
+					.addField("Servern är Online", ms.current_players + " spelare inne just nu")
+					.setColor("0x#48ce70")
+					.setTimestamp(new Date())
+				});
+			}
+			else
+			{
+				message.channel.send({embed: new Discord.RichEmbed()
+					.setTitle("itgmine.gq")
+					.setDescription("Servern är Offline")
+					.setColor("0x#d14949")
+					.setTimestamp(new Date())
+				});
+			}
+		});
 		break;
 	case "ryss":
 		if (pistolLaddad === false) {
