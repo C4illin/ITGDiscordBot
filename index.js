@@ -581,7 +581,7 @@ bot.on("message", (message) => {
 			{
 				message.channel.send({embed: new Discord.RichEmbed()
 					.setTitle("ITGmine.gq")
-					.addField("Servern är Online", ms.current_players + " spelare inne just nu")
+					.setDescription(ms.current_players + " spelare inne just nu\nServern är Online")
 					.setColor("0x#48ce70")
 					.setTimestamp(new Date())
 				});
