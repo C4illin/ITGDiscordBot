@@ -44,7 +44,7 @@ module.exports =
 		});
 
 		// Set timeout to 5 seconds
-		client.setTimeout(5000);
+		client.setTimeout(2000);
 
 		client.on("data", (data) =>
 		{
