@@ -589,7 +589,7 @@ bot.on("message", (message) => {
 			else
 			{
 				message.channel.send({embed: new Discord.RichEmbed()
-					.setTitle("itgmine.gq")
+					.setTitle("ITGmine.gq")
 					.setDescription("Servern är Offline")
 					.setColor("0x#d14949")
 					.setTimestamp(new Date())

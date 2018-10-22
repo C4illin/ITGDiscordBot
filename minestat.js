@@ -72,7 +72,6 @@ module.exports =
 		{
 			callback();
 			client.end();
-			process.exit();
 		});
 
 		client.on("end", () =>
@@ -84,23 +83,20 @@ module.exports =
 		{
 			// Uncomment the lines below to handle error codes individually. Otherwise,
 			// call callback() and simply report the remote server as being offline.
-
+			return;
 			
-			if(err.code == "ENOTFOUND")
-			{
-				console.log("Unable to resolve " + this.address + ".");
-				return;
-			}
+			// if(err.code == "ENOTFOUND")
+			// {
+			// 	console.log("Unable to resolve " + this.address + ".");
+			// 	return;
+			// }
 
-			if(err.code == "ECONNREFUSED")
-			{
-				console.log("Unable to connect to port " + this.port + ".");
-				return;
-			}
-      
-
-			callback();
-
+			// if(err.code == "ECONNREFUSED")
+			// {
+			// 	console.log("Unable to connect to port " + this.port + ".");
+			// 	return;
+			// }
+			
 			// Uncomment the line below for more details pertaining to network errors.
 			//console.log(err);
 		});
