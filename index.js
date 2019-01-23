@@ -105,8 +105,8 @@ function timeConverter(UNIX_timestamp) {
 }
 
 bot.on("message", (message) => {
-  if (message.channel.id == config.memeroom)  {
-    if (message.content.startsWith("http") || message.attachments.size != "0"){
+  if (message.channel.id == config.memeroom || message.channel.id == config.reactroom)  {
+    if (message.content.startsWith("http") || message.attachments.size != "0" || message.channel.id == config.reactroom){
       message.react("👍")
       setTimeout(function(){
         message.react("👎")
@@ -482,6 +482,14 @@ bot.on("message", (message) => {
 					"&mode=0&printer=0&colors=32&head=0&clock=0&foot=0&day=0&width="+widthSchema+"&height="+heightSchema+"&maxwidth=1883&maxheight=847")
         .setColor("0x"+("000000"+Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6))
     })
+    break
+  case "randomspel":
+    bot.channels.get("354703852437766157").fetchMessages({ limit: 5 })
+      .then(messages => {
+        let key = messages.get(messages.randomKey(1))
+        console.log(key)
+      })
+      .catch(console.error)
     break
   case "github":
     message.author.send("https://github.com/ChilladeChillin/ITGDiscordBot")
