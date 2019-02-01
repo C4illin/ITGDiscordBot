@@ -484,10 +484,15 @@ bot.on("message", (message) => {
     })
     break
   case "randomspel":
-    bot.channels.get("354703852437766157").fetchMessages({ limit: 5 })
+    bot.channels.get(config.reactroom).fetchMessages()
       .then(messages => {
-        let key = messages.get(messages.randomKey(1))
-        console.log(key)
+        let themessage = messages.random()
+        message.channel.send({
+          embed: new Discord.RichEmbed()
+            .addField(themessage.content, themessage.reactions.filter(a => a.emoji.name == '👍').map(reaction => reaction.count)[0] + '👍 ' + themessage.reactions.filter(a => a.emoji.name == '👎').map(reaction => reaction.count)[0] + '👎')
+            .setColor(0x3B8D69)
+            .setTimestamp()
+        })
       })
       .catch(console.error)
     break
@@ -682,7 +687,7 @@ bot.on("message", (message) => {
     })
     break
   case "tid":
-    message.channel.send(chance.date({string: true, american: false})+" Klockan "+chance.hour()+":"+chance.minute())
+    message.channel.send(timeConverter(Math.floor(Math.random() * 2500000000000)))
     break
   case "nummer":
     var meddelandetsContent = message.content.substring(8)
