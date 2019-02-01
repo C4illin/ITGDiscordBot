@@ -3,7 +3,6 @@ const fs = require("fs")
 const request = require("request")
 const cheerio = require("cheerio")
 const YTDL = require("ytdl-core")
-const Chance = require("chance")
 const ms = require("./minestat.js")
 var config = require("./config.json")
 var cleverbot = require("cleverbot.io"),
@@ -26,8 +25,6 @@ function play(connection, message) {
     else connection.disconnect()
   })
 }
-
-var chance = new Chance()
 
 bot.on("ready", () => {
   bot.user.setActivity("!help", {type: "LISTENING"})

@@ -4,7 +4,6 @@
   "description": "En bot till discord med funktioner som att visa schemat",
   "main": "index.js",
   "dependencies": {
-    "chance": "^1.0.16",
     "cheerio": "^1.0.0-rc.2",
     "cleverbot.io": "^1.0.4",
     "date": "^1.0.2",
