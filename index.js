@@ -66,7 +66,6 @@ var dabRespond = [
   "Okej då, ***DAB***"
 ]
 
-
 var inCash
 var betWinner
 var betWinnerCall
@@ -487,7 +486,7 @@ bot.on("message", (message) => {
         message.channel.send({
           embed: new Discord.RichEmbed()
             .addField(themessage.content, themessage.reactions.filter(a => a.emoji.name == '👍').map(reaction => reaction.count)[0] + '👍 ' + themessage.reactions.filter(a => a.emoji.name == '👎').map(reaction => reaction.count)[0] + '👎')
-            .setColor(0x3B8D69)
+            .setColor("#"+Math.random().toString(16).substring(2,8))
             .setTimestamp()
         })
       })
@@ -676,7 +675,7 @@ bot.on("message", (message) => {
     })
     break
   case "info":
-    message.author.send({
+    message.channel.send({
       embed: new Discord.RichEmbed()
         .addField("Serverinformation:", "Antal medlemmar: " + message.guild.members.filter(member => !member.user.bot).size + "\nDu gick med den " + timeConverter(message.guild.joinedTimestamp) + "\nServerns admin är: " + message.guild.owner)
         .setThumbnail(message.guild.iconURL)
