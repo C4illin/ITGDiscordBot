@@ -33,9 +33,7 @@ bot.on("ready", () => {
 
 clever.create(function (err) {
   console.log("Cleverbot.io Connected")
-  if (err){
-    console.log(err)
-  }
+  if (err){ console.log(err) }
 })
 
 var hurExempel = require("./hurExempel")
@@ -51,7 +49,7 @@ var borde = [
   "Nej",
   "Nej",
   "Nej",
-  "Kanske"
+  "Kanske",
 ]
 
 var dabRespond = [
@@ -63,7 +61,7 @@ var dabRespond = [
   "Du kan inte tvinga mig",
   "Vad är det du inte förstår?",
   "Jävla människor ska alltid komma och tjata",
-  "Okej då, ***DAB***"
+  "Okej då, ***DAB***",
 ]
 
 var inCash
@@ -102,9 +100,9 @@ function timeConverter(UNIX_timestamp) {
 
 bot.on("message", (message) => {
   if (message.channel.id == config.memeroom || message.channel.id == config.reactroom)  {
-    if (message.content.startsWith("http") || message.attachments.size != "0" || message.channel.id == config.reactroom){
+    if (message.content.startsWith("http") || message.attachments.size != "0" || message.channel.id == config.reactroom) {
       message.react("👍")
-      setTimeout(function(){
+      setTimeout(function() {
         message.react("👎")
       }, 500)
     }     
@@ -136,7 +134,7 @@ bot.on("message", (message) => {
         .addField("Discord kommandon:", "!hex - ger dig en slumpmässig färg\n!hexdisplay <hex> - visar fägen som det inskrivna hex nummret ger\n!github - skickar länken till botens github repo\n!ping - visar botens internal ping (för felsökning)\n!getid - visar ditt user id\n!info - visar info om servern")
         .addField("Ekonomi kommandon:", "!plånbok - skapar en personlig plånbok åt dig\n!saldo - visar ditt saldo\n!bet <amount> - flipa en slant med någon och se vem som vinner pengarna\n!resetplånbok - resetar din plånbok\n!removebet - tar bort det senaste betet")
         .addField("Musik kommandon:", "!play <url> - spelar en youtube url\n!skip - skippar låten som spelas nu\n!stop - stoppar musiken helt\n!theend - spelar upp ett visst tal")
-        .setColor("0x111111")
+        .setColor("0x111111"),
     })
     break
   case "hur":
@@ -244,7 +242,7 @@ bot.on("message", (message) => {
             message.channel.send({
               embed: new Discord.RichEmbed()
                 .addField(betWinnerCall.nickname+ " Vann betet på "+bet, betLoserCall.nickname+" saldo är nu: "+loserSaldo+"\n"+betWinnerCall.nickname+" saldo är nu: "+vinnarensSaldo)
-                .setColor("0x009900")
+                .setColor("0x009900"),
             })
           })
         })
@@ -255,24 +253,24 @@ bot.on("message", (message) => {
     message.channel.send({
       embed: new Discord.RichEmbed()
         .addField("150¤", "Rosa")
-        .setColor("0xff80ff")
+        .setColor("0xff80ff"),
     })
     message.channel.send({
       embed: new Discord.RichEmbed()
         .addField("200¤", "Grön")
-        .setColor("0x339933")
+        .setColor("0x339933"),
     })
     message.channel.send({
       embed: new Discord.RichEmbed()
         .addField("300¤", "Orange")
-        .setColor("0x#ff8533")
+        .setColor("0x#ff8533"),
     })
     message.channel.send({
       embed: new Discord.RichEmbed()
         .addField("500¤", "ValfriFärg")
         .addBlankField()
         .addField("Hur man köper:", "Köp en färg genom att skriva !köp följt av namnet på färgen")
-        .setColor("0x"+("000000"+Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6))
+        .setColor("0x"+("000000"+Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6)),
     })
     break
   case "köp":
@@ -410,7 +408,7 @@ bot.on("message", (message) => {
     }
 
     if(!servers[message.guild.id]) servers[message.guild.id] = {
-      queue: []
+      queue: [],
     }
 
     var server = servers[message.guild.id]
@@ -432,7 +430,7 @@ bot.on("message", (message) => {
       return
     }
     if(!servers[message.guild.id]) servers[message.guild.id] = {
-      queue: []
+      queue: [],
     }
     var server = servers[message.guild.id]
     server.queue.push("https://youtu.be/pdRH5wzCQQw")
@@ -476,7 +474,7 @@ bot.on("message", (message) => {
         .setAuthor("Schema v."+valfriVecka+":")
         .setImage("http://www.novasoftware.se/ImgGen/schedulegenerator.aspx?format=png&schoolid=80220/sv-se&type=1&id={5FA2E621-D442-4D30-A272-0B8157D08344}&period=&week="+valfriVecka+
 					"&mode=0&printer=0&colors=32&head=0&clock=0&foot=0&day=0&width="+widthSchema+"&height="+heightSchema+"&maxwidth=1883&maxheight=847")
-        .setColor("0x"+("000000"+Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6))
+        .setColor("0x"+("000000"+Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6)),
     })
     break
   case "randomspel":
@@ -485,9 +483,9 @@ bot.on("message", (message) => {
         let themessage = messages.random()
         message.channel.send({
           embed: new Discord.RichEmbed()
-            .addField(themessage.content, themessage.reactions.filter(a => a.emoji.name == '👍').map(reaction => reaction.count)[0] + '👍 ' + themessage.reactions.filter(a => a.emoji.name == '👎').map(reaction => reaction.count)[0] + '👎')
-            .setColor("#"+Math.random().toString(16).substring(2,8))
-            .setTimestamp()
+            .addField(themessage.content, themessage.reactions.filter(a => a.emoji.name == "👍").map(reaction => reaction.count)[0] + "👍 " + themessage.reactions.filter(a => a.emoji.name == "👎").map(reaction => reaction.count)[0] + "👎")
+            .setColor("#"+Math.random().toString(16).substring(2, 8))
+            .setTimestamp(),
         })
       })
       .catch(console.error)
@@ -522,7 +520,7 @@ bot.on("message", (message) => {
       embed: new Discord.RichEmbed()
         .setAuthor("Hex:")
         .setDescription("#"+randomhex)
-        .setColor("0x"+randomhex)
+        .setColor("0x"+randomhex),
     })
     break
   case "poll":
@@ -531,7 +529,7 @@ bot.on("message", (message) => {
     message.channel.send(question+"\n\n`👍=JA 👎=NEJ`")
       .then(function (message) {
         message.react("👍")
-        setTimeout(function(){
+        setTimeout(function() {
           message.react("👎")
         }, 500)
       }).catch(function() {
@@ -546,7 +544,7 @@ bot.on("message", (message) => {
       .then(function (message) {
         message.react("👍")
         message.pin()
-        setTimeout(function(){
+        setTimeout(function() {
           message.react("👎")
         }, 500)
       }).catch(function() {
@@ -555,12 +553,12 @@ bot.on("message", (message) => {
     break
   case "hd":
   case "hexdisplay":
-    var hexCode = (message.content.split(" ").pop().replace("#","").trim()+"000000").substr(0,6)
+    var hexCode = (message.content.split(" ").pop().replace("#", "").trim()+"000000").substr(0, 6)
     message.channel.send({
       embed: new Discord.RichEmbed()
         .setAuthor("Hex:")
         .setDescription("#"+hexCode)
-        .setColor("0x"+hexCode)
+        .setColor("0x"+hexCode),
     })
     break
   case "getid":
@@ -592,7 +590,7 @@ bot.on("message", (message) => {
           .setTitle("ITGmine.gq")
           .setDescription(ms.current_players + " spelare inne just nu\nServern är Online")
           .setColor("0x#48ce70")
-          .setTimestamp(new Date())
+          .setTimestamp(new Date()),
         })
       }
       else
@@ -601,7 +599,7 @@ bot.on("message", (message) => {
           .setTitle("ITGmine.gq")
           .setDescription("Servern är Offline")
           .setColor("0x#d14949")
-          .setTimestamp(new Date())
+          .setTimestamp(new Date()),
         })
       }
     })
@@ -624,27 +622,48 @@ bot.on("message", (message) => {
     }
     break
   case "lmgtfy":
-    var wikiSearch = message.content.substring(8).replace(/ /g,"+")
+    var wikiSearch = message.content.substring(8).replace(/ /g, "+")
     message.channel.send("http://lmgtfy.com/?q="+wikiSearch)
     break
   case "wikipedia":
-    wikiSearch = message.content.substring(11).replace(/ /g,"_")
+    wikiSearch = message.content.substring(11).replace(/ /g, "_")
     message.channel.send("https://en.wikipedia.org/wiki/"+wikiSearch)
     break
   case "wikise":
-    wikiSearch = message.content.substring(8).replace(/ /g,"_")
+    wikiSearch = message.content.substring(8).replace(/ /g, "_")
     message.channel.send("https://sv.wikipedia.org/wiki/"+wikiSearch)
     break
   case "wikisök":
-    wikiSearch = message.content.substring(9).replace(/ /g,"+")
+    wikiSearch = message.content.substring(9).replace(/ /g, "+")
     message.channel.send("https://en.wikipedia.org/w/index.php?search="+wikiSearch)
     break
   case "google":
-    var googleSearch = message.content.substring(8).replace(/ /g,"+")
+    var googleSearch = message.content.substring(8).replace(/ /g, "+")
     message.channel.send("https://www.google.se/search?q="+googleSearch)
     break
+  case "ss":
+  case "seaside":
+    var url = "http://seaside.kvartersmenyn.se/"
+    request(url, function(err, resp, body) {
+      let $ = cheerio.load(body)
+      let meny = $("div.meny").first()
+      meny.find("br").replaceWith("\n")
+      let menytext = meny.text()
+      //message.channel.send(menytext.substring(0, menytext.indexOf("Tisdag")))
+      message.channel.send({
+        embed: new Discord.RichEmbed()
+          .addField("Måndag", menytext.substring(6, menytext.indexOf("Tisdag")))
+          .addField("Tisdag", menytext.substring(menytext.indexOf("Tisdag")+6, menytext.indexOf("Onsdag")))
+          .addField("Onsdag", menytext.substring(menytext.indexOf("Onsdag")+6, menytext.indexOf("Torsdag")))
+          .addField("Torsdag", menytext.substring(menytext.indexOf("Torsdag")+7, menytext.indexOf("Fredag")))
+          .addField("Fredag", menytext.substring(menytext.indexOf("Fredag")+6, menytext.indexOf("Här på Seaside")))
+          .setColor(0xffcc77),
+      })
+    })
+    
+    break
   case "slang":
-    var slangSearch = message.content.substring(7).replace(/å/gi,"%E5").replace(/ä/gi,"%E4").replace(/ö/gi,"%F6")
+    var slangSearch = message.content.substring(7).replace(/å/gi, "%E5").replace(/ä/gi, "%E4").replace(/ö/gi, "%F6")
     var slang_url = "http://www.slangopedia.se/ordlista/?ord=" + slangSearch
     request(slang_url, function(err, resp, body) {
       var $ = cheerio.load(body)
@@ -668,8 +687,8 @@ bot.on("message", (message) => {
           //.setAuthor()
             .addField(slang_titleText.charAt(0).toUpperCase() + slang_titleText.slice(1), slang_defText)
             .addBlankField()
-            .addField("Exempel:","*"+slang_exText+"*")
-            .setColor(0xffcc77)
+            .addField("Exempel:", "*"+slang_exText+"*")
+            .setColor(0xffcc77),
         })		
       }
     })
@@ -679,7 +698,7 @@ bot.on("message", (message) => {
       embed: new Discord.RichEmbed()
         .addField("Serverinformation:", "Antal medlemmar: " + message.guild.members.filter(member => !member.user.bot).size + "\nDu gick med den " + timeConverter(message.guild.joinedTimestamp) + "\nServerns admin är: " + message.guild.owner)
         .setThumbnail(message.guild.iconURL)
-        .setColor("0x111111")
+        .setColor("0x111111"),
     })
     break
   case "tid":
