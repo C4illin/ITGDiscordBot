@@ -5,13 +5,12 @@ const cheerio = require("cheerio")
 const YTDL = require("ytdl-core")
 const ms = require("./minestat.js")
 var config = require("./config.json")
-var cleverbot = require("cleverbot.io"),
-  clever = new cleverbot(config.apiuser, config.apikey)
+// var cleverbot = require("cleverbot.io"), clever = new cleverbot(config.apiuser, config.apikey)
 const bot = new Discord.Client()
 const prefix = "!"
 const botToken = config.discord
 
-clever.setNick("discord")
+// clever.setNick("discord")
 
 function play(connection, message) {
   var server =servers[message.guild.id]
@@ -31,10 +30,10 @@ bot.on("ready", () => {
   console.log("Discord.js Connected")
 })
 
-clever.create(function (err) {
-  console.log("Cleverbot.io Connected")
-  if (err){ console.log(err) }
-})
+// clever.create(function (err) {
+//   console.log("Cleverbot.io Connected")
+//   if (err){ console.log(err) }
+// })
 
 var hurExempel = require("./hurExempel")
 
@@ -108,17 +107,17 @@ bot.on("message", (message) => {
     }     
   }
   if (message.author.bot) return
-  if (!message.content.startsWith(prefix) && (message.channel.id == config.cleverbot || message.channel.type === "dm")) {
-    message.channel.startTyping()
-    clever.ask(message.content, function (err, response) {
-      if (err) {
-        console.log(err)
-        return
-      }
-      message.channel.send(response)
-    })
-    message.channel.stopTyping()
-  }
+  // if (!message.content.startsWith(prefix) && (message.channel.id == config.cleverbot || message.channel.type === "dm")) {
+  //   message.channel.startTyping()
+  //   clever.ask(message.content, function (err, response) {
+  //     if (err) {
+  //       console.log(err)
+  //       return
+  //     }
+  //     message.channel.send(response)
+  //   })
+  //   message.channel.stopTyping()
+  // }
   if (!message.content.startsWith(prefix)) return
 	
   var split = message.content.substring(prefix.length).split(" ")
