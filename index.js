@@ -26,7 +26,8 @@ function play(connection, message) {
 }
 
 bot.on("ready", () => {
-  bot.user.setActivity("!help", {type: "LISTENING"})
+  // bot.user.setActivity("!help", {type: "LISTENING"})
+  bot.user.setPresence({activity: { name: "!help", type: "LISTENING" }, status: "idle"})
   console.log("Discord.js Connected")
 })
 
@@ -725,6 +726,9 @@ bot.on("message", (message) => {
       statement = message.content.substring(9).replace("?", ".")
     }
     message.channel.send(klasslista[Math.floor(Math.random()*klasslista.length)]+" "+statement)
+    break
+  case "remindme":
+    message.channel.send("nej "+message.author.toString())
     break
   case "test":
     //för snabba test
