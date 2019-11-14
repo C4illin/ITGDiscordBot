@@ -27,7 +27,7 @@ function play(connection, message) {
 
 bot.on("ready", () => {
   // bot.user.setActivity("!help", {type: "LISTENING"})
-  bot.user.setPresence({activity: { name: "!help", type: "LISTENING" }, status: "idle"})
+  bot.user.setPresence({activity: { name: "!help", type: "LISTENING" }, status: "online"})
   console.log("Discord.js Connected")
 })
 
