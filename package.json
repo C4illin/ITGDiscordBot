@@ -14,7 +14,7 @@
     "libsodium-wrappers": "^0.7.6",
     "node-fetch": "^2.6.0",
     "node-gyp": "^4.0.0",
-    "opusscript": "0.0.6",
+    "opusscript": "0.0.7",
     "rebuild": "^0.1.2",
     "request": "^2.88.0",
     "superagent": "^4.1.0",
