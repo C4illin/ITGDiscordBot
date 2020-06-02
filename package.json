@@ -13,7 +13,7 @@
     "fs": "0.0.1-security",
     "libsodium-wrappers": "^0.7.6",
     "node-fetch": "^2.6.0",
-    "node-gyp": "^4.0.0",
+    "node-gyp": "^5.1.1",
     "opusscript": "0.0.6",
     "rebuild": "^0.1.2",
     "request": "^2.88.0",
